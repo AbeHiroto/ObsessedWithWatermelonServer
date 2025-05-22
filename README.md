@@ -1,26 +1,37 @@
-# Online Tic-Tac-Toe "BRIBE" Server
+# **Back-End Server for "Obsessed with Watermelon"**
+## **1. Running flow on your local repo**
+### **1.1. Install the following:**
+<p align="left">
+  <img alt="Top Langs" height="40px" src="https://img.shields.io/badge/Go-%2300ADD8.svg?&logo=go&logoColor=white" />
+  <img alt="Top Langs" height="40px" src="https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white" />
+  <img alt="Top Langs" height="40px" src="https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white" />
+</p>
 
-## Overview
-This demo project is the backend server for a [two-player online Tic-Tac-Toe web app "BRIBE"](https://github.com/AbeHiroto/bribe). I implemented a registration-free matching system using JWT tokens and invitation URLs. **In addition to that, "bribe" system makes this game definitely funnier than conventional tic-tac-toe!**
+### **1.2. Set up new schema for this app in your local PostgreSQL**
+- **1. Setup user:**`sudo -u postgres createuser --interactive`
+- **2. Setup new DB:**`sudo -u postgres createdb {DB name whatever you like}`
+- **3. Setup password for DB user:**
+`sudo -u postgres psql`
+`ALTER USER {your_user_name} WITH PASSWORD '{your_password}';`
 
-## Built with natural language
-As a complete beginner with no prior programming experience, I started this project after just a basic tutorial in Go. With the help of ChatGPT, I managed to build this server using natural language processing. Although the project has a strong element of being a joke app, I took serious steps to ensure the gameplay process was enjoyable and implemented real-time battle through WebSocket communication. This project allowed me to learn basic development procedures, and I look forward to creating more enjoyable and beneficial projects in the future.
+### **1.3. Place .env file in your local repository with the content below**
+```
+DB_USER={Your user name for PostgreSQL}
+DB_PASSWORD={Your DB password for the user above}
+DB_NAME={DB name you set up above on PostgreSQL for this app}
+DB_HOST=localhost
+DB_SSLMODE=disable
+```
+Please place this .env file in your root directory for this app.
 
-## Features
-- **Bribe System:** You can give a bribe or accuse unfair judge!
-- **Token-based Authentication:** Securely manage user sessions and game states using JWT.
-- **Invitation Link System:** Allows users to join games without needing to register, just by clicking a link.
+### **1.4. Run dbMigration.go to set up schema**
+Please run dbMigration/dbMigration.go from terminal.
+`go run dbMigration/dbMigration.go`
 
-## Technologies and Libraries
-<img src="https://img.shields.io/badge/-Go-76E1FE.svg?logo=go&style=for-the-badge"> <img src="https://img.shields.io/badge/-Gin-333366.svg?logo=gin&style=for-the-badge"> <img src="https://img.shields.io/badge/-Postgresql-2f2f2f.svg?logo=postgresql&style=for-the-badge">
+### **1.5. Now you are ready to go!**
+You can start the server from a terminal: `go run main.go`
 
-**Important Libraries Used:**
-- Logging: `go.uber.org/zap`
-- ORM: `gorm.io/gorm`
-- Real-time Communication: `github.com/gorilla/websocket`
-- Token Management: `github.com/golang-jwt/jwt v3.2.1+incompatible`
-
-## Directories
+## **2. Directories**
 - main.go
 - auth/         (Validation of JWT)
 - bribe/
@@ -33,6 +44,3 @@ As a complete beginner with no prior programming experience, I started this proj
 - models/
 - screens/      (Handle HTTP requests )
 - utils/        (Initialization of Cron and Logger)
-
-## Future Prospects
-The frontend of this web app is currently being developed as a Flutter web application. The goal for this phase was to ensure that all features function correctly.
