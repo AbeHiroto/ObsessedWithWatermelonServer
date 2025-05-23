@@ -8,11 +8,11 @@ import (
 
 	"gorm.io/gorm"
 
-	jwt "github.com/golang-jwt/jwt"
+	jwt "github.com/golang-jwt/jwt/v5"
 	"go.uber.org/zap"
 )
 
-var db *gorm.DB // GORMデータベース接続を保持するグローバル変数
+// var db *gorm.DB // GORMデータベース接続を保持するグローバル変数
 var logger *zap.Logger
 
 func GenerateToken(db *gorm.DB, subscriptionStatus string, existingUserID uint) (string, uint, error) {
@@ -43,8 +43,10 @@ func GenerateToken(db *gorm.DB, subscriptionStatus string, existingUserID uint) 
 	claims := &models.MyClaims{
 		UserID:             userID,
 		SubscriptionStatus: subscriptionStatus,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expirationTime.Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(expirationTime),
+			// IssuedAt:  jwt.NewNumericDate(time.Now()),
+			// NotBefore: jwt.NewNumericDate(time.Now()),
 		},
 	}
 
