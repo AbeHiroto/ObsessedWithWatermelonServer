@@ -1,5 +1,5 @@
 # **Back-End Server for "Obsessed with Watermelon"**
-## **1. Running flow on your local repo**
+## **1. Running flow (on your local repo)**
 ### **1.1. Install the following:**
 <p align="left">
   <img alt="Top Langs" height="40px" src="https://img.shields.io/badge/Go-%2300ADD8.svg?&logo=go&logoColor=white" />
@@ -31,6 +31,7 @@ Please run dbMigration/dbMigration.go from terminal.
 ### **1.5. Now you are ready to go!**
 You can start the server from a terminal: `go run main.go`
 
+---
 ## **2. Directories**
 - main.go
 - auth/         (Validation of JWT)
