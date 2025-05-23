@@ -3,7 +3,7 @@ package auth
 import (
 	"xicserver/models"
 
-	jwt "github.com/golang-jwt/jwt"
+	jwt "github.com/golang-jwt/jwt/v5"
 )
 
 func IsValidToken(tokenString string) (bool, error) {

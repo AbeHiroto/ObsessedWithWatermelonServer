@@ -7,7 +7,7 @@ import (
 	"xicserver/models"
 
 	"github.com/gin-gonic/gin"
-	jwt "github.com/golang-jwt/jwt"
+	jwt "github.com/golang-jwt/jwt/v5"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
@@ -15,9 +15,11 @@ import (
 // リクエストからJWTトークンを検証し、ユーザーIDと新トークンを返します。
 func TokenAuthentication(c *gin.Context, db *gorm.DB, logger *zap.Logger, subscriptionStatus string) (uint, string, bool, error) {
 	tokenString := c.GetHeader("Authorization")
-	if strings.HasPrefix(tokenString, "Bearer ") {
-		tokenString = strings.TrimPrefix(tokenString, "Bearer ")
-	}
+
+	tokenString = strings.TrimPrefix(tokenString, "Bearer ")
+	// if strings.HasPrefix(tokenString, "Bearer ") {
+	// 	tokenString = strings.TrimPrefix(tokenString, "Bearer ")
+	// }
 
 	if tokenString == "" {
 		// トークンが提供されていない場合、新しいトークンを生成
@@ -44,7 +46,7 @@ func TokenAuthentication(c *gin.Context, db *gorm.DB, logger *zap.Logger, subscr
 	}
 
 	// トークンの有効期限が1時間未満の場合は新しいトークンを生成
-	if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) < time.Hour {
+	if claims.ExpiresAt != nil && time.Until(claims.ExpiresAt.Time) < time.Hour {
 		newToken, _, err := GenerateToken(db, claims.SubscriptionStatus, claims.UserID)
 		if err != nil {
 			logger.Error("Token generation error", zap.Error(err))

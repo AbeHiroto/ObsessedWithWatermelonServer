@@ -9,7 +9,7 @@ import (
 	"xicserver/models"
 
 	"github.com/gin-gonic/gin"
-	jwt "github.com/golang-jwt/jwt"
+	jwt "github.com/golang-jwt/jwt/v5"
 	"go.uber.org/zap"
 )
 
@@ -18,16 +18,17 @@ func GetUserIDFromToken(c *gin.Context, logger *zap.Logger) (uint, error) {
 	// トークンをリクエストヘッダーから取得
 	tokenString := c.GetHeader("Authorization")
 
-	// Bearerトークンのプレフィックスを確認し、存在する場合は削除
-	if strings.HasPrefix(tokenString, "Bearer ") {
-		tokenString = strings.TrimPrefix(tokenString, "Bearer ")
-	}
+	tokenString = strings.TrimPrefix(tokenString, "Bearer ")
+	// // Bearerトークンのプレフィックスを確認し、存在する場合は削除
+	// if strings.HasPrefix(tokenString, "Bearer ") {
+	// 	tokenString = strings.TrimPrefix(tokenString, "Bearer ")
+	// }
 
 	// ここでtokenStringが空文字列でないことを確認
 	if tokenString == "" {
 		logger.Error("Token string is empty")
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Token is required"})
-		return 0, fmt.Errorf("Token is required")
+		return 0, fmt.Errorf("token is required")
 	}
 
 	// JWTトークンの解析

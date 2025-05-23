@@ -13,7 +13,7 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/gorilla/websocket"
 )
 
