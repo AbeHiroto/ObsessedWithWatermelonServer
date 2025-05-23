@@ -13,12 +13,11 @@ import (
 	"gorm.io/gorm"
 )
 
-// User モデルの定義
+// User モデルの定義（修正済み）
 type User struct {
 	gorm.Model
-	SubscriptionStatus string `gorm:"not null"`
-	ValidRoomCount     int    `gorm:"not null;default:0"`
-	ValidRequestCount  int    `gorm:"default:0"`
+	HasRoom    bool `gorm:"not null;default:false"`
+	HasRequest bool `gorm:"not null;default:false"`
 }
 
 // GameRoom モデルの定義
