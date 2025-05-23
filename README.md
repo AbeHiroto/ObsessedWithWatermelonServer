@@ -33,18 +33,17 @@ You can start the server from a terminal: `go run main.go`
 
 ---
 ## **2. Directories**
- **root**/
-├── **main.go**
-├── **auth/**          # Validation of JWT
-├── **bribe/**
-│   ├── **actions/**    # Handle client's actions
-│   ├── **broadcast/**  # Broadcast game state to clients
-│   ├── **connection/** # Manage game instances and websocket connections
-│   └── **database/**   # Manage Session ID with Redis
-├── **database/**      # Initialization of PostgreSQL and Redis
-├── **dbMigration/**   # Migration program for setting up PostgreSQL
-├── **handlers/**      # Handlers of screen state and websocket connections
-├── **middleware/**    # Manage JWT
-├── **models/**
-├── **screens/**       # Handle HTTP requests
-└── **utils/**         # Initialization of Cron and Logger
+- **main.go**
+- **auth/**          # Validation of JWT
+- **bribe/**
+  - **actions/**     # Handle client's actions
+  - **broadcast/**   # Broadcast game state to clients
+  - **connection/**  # Manage game instances and websocket connections
+  - **database/**    # Manage Session ID with Redis
+- **database/**      # Initialization of PostgreSQL and Redis
+- **dbMigration/**   # Migration program for setting up PostgreSQL
+- **handlers/**      # Handlers of screen state and websocket connections
+- **middleware/**    # Manage JWT
+- **models/**
+- **screens/**       # Handle HTTP requests
+- **utils/**         # Initialization of Cron and Logger
