@@ -92,7 +92,9 @@ func main() {
 
 	//CORS（Cross-Origin Resource Sharing）ポリシーを設定
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"}, //"*", ここにデプロイサーバーのIPアドレスを設定、"http://localhost:*"
+		// AllowOrigins: []string{"https://abehiroto.com"}, // 本番環境用設定
+		// ローカルテスト時は"AllowOrigins: []string{"https://abehiroto.com", "http://localhost:42951", "http://localhost:35441"},"のようにシミュレーター起動後にlocalhostのポート指定
+		AllowOrigins:     []string{"*"}, // ですべての接続元を許可（ローカル環境のみで適用すること）
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -145,7 +147,7 @@ func main() {
 	router.Run()
 
 	// // 本番環境ではコメントアウトを解除し、HTTPSサーバーとして運用
-	// err = router.RunTLS(":443", "path/for/cert.pem", "path/for/privkey.pem")
+	// err = router.RunTLS(":443", "/pathto/cert.pem", "/pathto/privkey.pem")
 	// if err != nil {
 	// 	logger.Fatal("Failed to run HTTPS server: ", zap.Error(err))
 	// }
